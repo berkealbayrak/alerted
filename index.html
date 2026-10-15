@@ -125,12 +125,12 @@
   .feature:nth-child(3) h3 { color: var(--yellow); }
 
   /* Team */
-  .team-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-top: 40px; }
+  .team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; margin-top: 40px; }
   .person { position: relative; background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 24px 18px 20px; overflow: hidden; }
   .person::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 4px; background: var(--c); }
   .person h3 { font-family: var(--display); font-weight: 700; font-size: 16px; line-height: 1.3; margin: 0 0 6px; }
   .person p { margin: 0; color: var(--muted); font-size: 14px; }
-  .person a { font-size: 13px; color: var(--muted); word-break: break-all; }
+  .person a { font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
   .person a:hover { color: var(--text); }
   .c1 { --c: var(--green); } .c2 { --c: var(--cyan); } .c3 { --c: var(--yellow); } .c4 { --c: var(--red); } .c5 { --c: var(--orange); }
 
@@ -161,7 +161,7 @@
   footer p { margin: 0; }
 
   @media (max-width: 960px) {
-    .team-grid { grid-template-columns: repeat(3, 1fr); }
+    
   }
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 64px; }
