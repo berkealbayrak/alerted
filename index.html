@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TriaTED – Offline AI-Powered Emergency Triage</title>
-<meta name="description" content="TriaTED: Offline AI-powered emergency medical triage and decision support system. CMPE 491/492 Senior Design Project, TED University.">
+<title>alerTED – Offline AI-Powered Emergency Triage</title>
+<meta name="description" content="alerTED: Offline AI-powered emergency medical triage and decision support system. CMPE 491/492 Senior Design Project, TED University.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
     line-height: 1.65;
   }
   a { color: inherit; }
-  a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; border-radius: 6px; }
   .wrap { max-width: 1120px; margin: 0 auto; padding-left: 24px; padding-right: 24px; }
 
   /* ---------- Nav ---------- */
@@ -92,16 +92,21 @@
   .viewfinder svg { display: block; width: 100%; height: 100%; }
   .scan { position: absolute; left: 50%; transform: translateX(-50%); bottom: 12px; white-space: nowrap; font-size: 11px; font-weight: 700; color: var(--text);
     background: rgba(6,20,28,.7); border-radius: 999px; padding: 4px 10px; }
-  .step { background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .step { background: var(--panel-2); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; min-height: 104px; }
   .step-head { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 700; color: var(--cyan); margin-bottom: 6px; }
   .dots { display: flex; gap: 4px; }
-  .dots i { width: 16px; height: 4px; border-radius: 2px; background: var(--line); }
+  .dots i { width: 16px; height: 4px; border-radius: 2px; background: var(--line); transition: background .2s; }
   .dots i.on { background: var(--cyan); }
   .step-text { margin: 0; font-size: 14px; line-height: 1.45; font-weight: 500; }
   .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .actions span { text-align: center; font-weight: 700; font-size: 13px; border-radius: 12px; padding: 10px; }
-  .next { background: var(--cyan); color: var(--bg); }
-  .call { background: rgba(255,107,122,.14); color: var(--red); border: 1px solid rgba(255,107,122,.45); }
+  .actions .btn {
+    display: block; width: 100%; text-align: center; font-family: var(--body); font-weight: 700; font-size: 13px;
+    border-radius: 12px; padding: 10px; border: 1px solid transparent; line-height: 1.3;
+  }
+  .next { background: var(--cyan); color: var(--bg); cursor: pointer; transition: filter .15s; }
+  .next:hover { filter: brightness(1.1); }
+  .next:active { filter: brightness(.95); }
+  .call { background: rgba(255,107,122,.14); color: var(--red); border-color: rgba(255,107,122,.45) !important; }
 
   /* ---------- Sections ---------- */
   section.block { padding-top: 88px; padding-bottom: 88px; border-top: 1px solid var(--line); }
@@ -160,9 +165,6 @@
   footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   footer p { margin: 0; }
 
-  @media (max-width: 960px) {
-    
-  }
   @media (max-width: 900px) {
     .hero { grid-template-columns: 1fr; padding-top: 48px; padding-bottom: 64px; }
     .split { grid-template-columns: 1fr; gap: 24px; }
@@ -183,7 +185,7 @@
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="#"><span class="dot" aria-hidden="true"></span>TriaTED</a>
+    <a class="brand" href="#"><span class="dot" aria-hidden="true"></span>alerTED</a>
     <nav aria-label="Main">
       <ul>
         <li><a href="#project">Project</a></li>
@@ -199,7 +201,7 @@
   <!-- ===================== HERO ===================== -->
   <div class="hero wrap">
     <div>
-      <h1>TriaTED</h1>
+      <h1>alerTED</h1>
       <p class="tagline">Offline AI-powered emergency medical triage and decision support system</p>
       <ul class="chips">
         <li>CMPE 491 / 492 Senior Design Project</li>
@@ -209,11 +211,11 @@
     </div>
 
     <!-- Illustrative app screen (concept only): camera detects the injury, app guides the user -->
-    <div class="phone-area" aria-hidden="true">
-      <div class="phone">
+    <div class="phone-area">
+      <div class="phone" role="group" aria-label="App preview (concept)">
         <div class="screen">
-          <div class="app-bar"><b>TriaTED</b><span class="badge">Offline</span></div>
-          <div class="viewfinder">
+          <div class="app-bar"><b>alerTED</b><span class="badge">Offline</span></div>
+          <div class="viewfinder" aria-hidden="true">
             <svg viewBox="0 0 260 190" preserveAspectRatio="xMidYMid slice">
               <!-- camera corner brackets -->
               <g fill="none" stroke="rgba(231,242,245,.55)" stroke-width="2.5" stroke-linecap="round">
@@ -233,10 +235,16 @@
             <span class="scan">Camera analysis</span>
           </div>
           <div class="step">
-            <div class="step-head"><span>Step 2 of 4</span><span class="dots"><i class="on"></i><i class="on"></i><i></i><i></i></span></div>
-            <p class="step-text">Press firmly on the wound with a clean cloth and keep pressing.</p>
+            <div class="step-head">
+              <span id="step-count">Step 1 of 4</span>
+              <span class="dots" id="step-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></span>
+            </div>
+            <p class="step-text" id="step-text" aria-live="polite">Make sure the area is safe before you approach the injured person.</p>
           </div>
-          <div class="actions"><span class="next">Next step</span><span class="call">Call 112</span></div>
+          <div class="actions">
+            <button type="button" class="btn next" id="next-step">Next step</button>
+            <span class="btn call">Call 112</span>
+          </div>
         </div>
       </div>
     </div>
@@ -248,22 +256,28 @@
       <div class="split">
         <h2>About the project</h2>
         <div class="prose">
-          <!-- DRAFT: rewrite these two paragraphs with your own project description -->
           <p>
-            Emergencies such as traffic accidents, earthquakes or injuries at home often happen when
-            no health professional is nearby, and the first minutes matter most. People who are on
-            the scene usually want to help, but they do not know how serious the situation is or
-            what they should do. In disasters, mobile networks may also be down, so online services
-            and remote help cannot be relied on.
+            alerTED is an offline, AI-powered mobile decision-support application designed for
+            emergency situations such as disasters, conflicts, and operations in remote areas where
+            internet access may be limited or unavailable.
           </p>
           <p>
-            TriaTED is a mobile application that anyone can use, without medical training and
-            without an internet connection. Using the phone's camera together with on-device image
-            processing and AI models, it helps assess the injured person's condition, estimates how
-            urgent the situation is, and guides the user step by step through the right first-aid
-            actions in plain language. All processing happens on the device, so the app keeps
-            working when there is no network. TriaTED supports, and does not replace, professional
-            emergency services, and reminds the user to call 112 when needed.
+            The application assists users, including those without formal medical training, in
+            assessing casualties through clear, step-by-step questions covering vital status and
+            observable signs of traumatic injury. Using the device’s camera, its on-device AI
+            analyzes visible injuries such as open wounds, burns, and active bleeding, providing
+            additional information to support assessment.
+          </p>
+          <p>
+            alerTED combines clinical information and visual analysis with established first aid and
+            triage protocols to provide appropriate first aid guidance and support casualty
+            prioritization in multi-casualty situations. Both AI-based image analysis and
+            decision-support functions operate entirely on the device, without requiring an internet
+            connection.
+          </p>
+          <p>
+            alerTED is currently being developed and evaluated as a research project under
+            controlled conditions.
           </p>
         </div>
       </div>
@@ -321,7 +335,7 @@
 
 <footer id="contact">
   <div class="wrap">
-    <p>TriaTED, Department of Computer Engineering, TED University, Ankara</p>
+    <p>alerTED, Department of Computer Engineering, TED University, Ankara</p>
     <p>Contact: <a href="mailto:team@example.com">team@example.com</a></p>
   </div>
 </footer>
@@ -331,6 +345,37 @@
   if (document.querySelector('#report-list li')) {
     document.getElementById('report-empty').hidden = true;
   }
+
+  // Phone preview: "Next step" button walks through the first-aid steps
+  (function () {
+    var steps = [
+      'Make sure the area is safe before you approach the injured person.',
+      'Press firmly on the wound with a clean cloth and keep pressing.',
+      'If blood soaks through, add another cloth on top. Do not remove the first one.',
+      'Keep pressing and stay with the person until help arrives.'
+    ];
+    var current = 0;
+    var textEl  = document.getElementById('step-text');
+    var countEl = document.getElementById('step-count');
+    var dots    = document.querySelectorAll('#step-dots i');
+    var nextBtn = document.getElementById('next-step');
+
+    function render() {
+      textEl.textContent  = steps[current];
+      countEl.textContent = 'Step ' + (current + 1) + ' of ' + steps.length;
+      for (var i = 0; i < dots.length; i++) {
+        dots[i].classList.toggle('on', i <= current);
+      }
+      nextBtn.textContent = (current === steps.length - 1) ? 'Start over' : 'Next step';
+    }
+
+    nextBtn.addEventListener('click', function () {
+      current = (current + 1) % steps.length;
+      render();
+    });
+
+    render();
+  })();
 </script>
 </body>
 </html>
